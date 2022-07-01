@@ -1,4 +1,4 @@
-module github.com/guilhermeonrails/api-go-gin
+module github.com/felipemarinhodev/api-go-gin
 
 go 1.15
 
