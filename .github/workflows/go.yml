@@ -2,36 +2,38 @@ name: Go
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ['main']
   pull_request:
-    branches: [ "main" ]
+    branches: ['main']
 
 jobs:
-
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Set up Go
-      uses: actions/setup-go@v3
-      with:
-        go-version: 1.18
-      
-    - name: Build-DB
-      run: docker-compose build
-      
-    - name: Create-DB
-      run: docker-compose up -d
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.18
 
-    - name: Test
-      run: go test main_test.go -v
+      - name: Build-DB
+        run: docker-compose build
+
+      - name: Create-DB
+        run: docker-compose up -d
+
+      - name: Go-Install
+        run: go install
+
+      - name: Test
+        run: go test main_test.go -v
 
   build:
     needs: test
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    
-    - name: Build
-      run: go build -v main.go
+      - uses: actions/checkout@v3
+
+      - name: Build
+        run: go build -v main.go
